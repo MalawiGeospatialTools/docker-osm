@@ -69,7 +69,7 @@ services:
       # Install some styles if you are using the default mapping. It can be 'yes' or 'no'
       - QGIS_STYLE=yes
       # Use clip in the database
-      - CLIP=no
+      - CLIP=yes
 
   osmupdate:
     build: docker-osmupdate
