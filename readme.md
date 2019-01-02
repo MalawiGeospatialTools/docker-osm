@@ -10,14 +10,6 @@ The only file you need is a PBF file and run the docker compose project.
 As a quick implementation for Malawi, we are going to setup Docker-OSM with default values everywhere:
 * Download the PBF file from http://download.geofabrik.de/africa/malawi-latest.osm.pbf
 * Put the file in the `settings` folder.
-* If you want to connect from your local QGIS Desktop:
-  * In the file `docker-compose.yml`, uncomment the block:
-
-```yml
-# Uncomment to use the postgis database from outside the docker network
-ports:
- - "35432:5432"
-```
 * Do `make run` in the build directory. This will download and execute the docker-osm project. It might be very long depending of your bandwidth and the PBF you are importing.
 * Do `make import_clip` in the build directory. This will import the Malawi country-border shapefile into the database and the clipping sql function needed for clipping the updates according to the territory of Malawi.
 * Check the data availability with PGAdmin or QGIS, by adding a new PostGIS connection: `localhost`(or the IP address/domain name of your server), database `gis`, port `35432`, `docker` for both username and password.
