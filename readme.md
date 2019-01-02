@@ -17,19 +17,6 @@ As a quick implementation for Malawi, we are going to setup Docker-OSM with defa
 
 For further reading and customizations, read below.
 
-## Docker cloud
-
-Dockerfiles are executed on [Docker Cloud kartoza/docker-osm](https://cloud.docker.com/swarm/kartoza/repository/docker/kartoza/docker-osm/general)
-
-```bash
-docker pull kartoza/docker-osm:imposm-latest
-docker pull kartoza/docker-osm:osmupdate-latest
-```
-
-To run you can use the provided docker-compose project and use the images
-hosted on the internet. This is useful if you want to integrate Docker-OSM in
-your existing docker-compose project.
-
 ## Usage
 
 ### PBF File
