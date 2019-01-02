@@ -1,4 +1,4 @@
-# Docker-OSM
+# Docker-OSM for Malawi
 
 A docker compose project to setup an OSM PostGIS database with automatic
 updates from OSM periodically.
@@ -7,41 +7,21 @@ The only file you need is a PBF file and run the docker compose project.
 
 ## Quick setup
 
-As a quick example, we are going to setup Docker-OSM with default values everywhere:
-* Download a PBF file from http://download.geofabrik.de/
+As a quick implementation for Malawi, we are going to setup Docker-OSM with default values everywhere:
+* Download the PBF file from http://download.geofabrik.de/africa/malawi-latest.osm.pbf
 * Put the file in the `settings` folder.
-* If you want to connect from your local QGIS Desktop:
-  * In the file `docker-compose.yml`, uncomment the block:
-
-```yml
-# Uncomment to use the postgis database from outside the docker network
-ports:
- - "35432:5432"
-```
 * Do `make run` in the build directory. This will download and execute the docker-osm project. It might be very long depending of your bandwidth and the PBF you are importing.
-* In QGIS, add a new PostGIS connexion: `localhost`, database `gis`, port `35432`, `docker` for both username and password.
-* That's it! You have an OSM database, up and running. The update is done every 2 minutes from the main OSM website.
+* Do `make import_clip` in the build directory. This will import the Malawi country-border shapefile into the database and the clipping sql function needed for clipping the updates according to the territory of Malawi.
+* Check the data availability with PGAdmin or QGIS, by adding a new PostGIS connection: `localhost`(or the IP address/domain name of your server), database `gis`, port `35432`, `docker` for both username and password.
+* That's it! You have an OSM database, up and running. The update is done every 15 minutes from the main OSM website.
 
 For further reading and customizations, read below.
-
-## Docker cloud
-
-Dockerfiles are executed on [Docker Cloud kartoza/docker-osm](https://cloud.docker.com/swarm/kartoza/repository/docker/kartoza/docker-osm/general)
-
-```bash
-docker pull kartoza/docker-osm:imposm-latest
-docker pull kartoza/docker-osm:osmupdate-latest
-```
-
-To run you can use the provided docker-compose project and use the images
-hosted on the internet. This is useful if you want to integrate Docker-OSM in
-your existing docker-compose project.
 
 ## Usage
 
 ### PBF File
-In this example we will set up an OSM database for South Africa that 
-will pull for updates every 2 minutes.
+In this example we will set up an OSM database for Malawi that 
+will pull for updates every 15 minutes.
 
 First get a PBF file from your area and put this file in the 'settings' folder.
 You can download some PBF files on these URLS for instance :
@@ -50,7 +30,7 @@ You can download some PBF files on these URLS for instance :
 
 ```bash
 cd settings
-wget -c -O country.pbf http://download.openstreetmap.fr/extracts/africa/south_africa.osm.pbf
+wget -c -O country.pbf http://download.openstreetmap.fr/extracts/africa/malawi.osm.pbf
 ```
 
 You must put only one PBF file in the settings folder. Only the last one will be read.
@@ -66,7 +46,7 @@ https://raw.githubusercontent.com/omniscale/imposm3/master/example-mapping.yml
 ### Updates
 
 You can configure the time interval in the docker-compose file. By default,
-it's two minutes. If you set the TIME variable to 0, no diff files will be
+it's 15 minutes. If you set the TIME variable to 0, no diff files will be
 imported.
 
 The default update stream is worldwide. So even if you imported a local PBF, if
@@ -205,6 +185,7 @@ With -e, you can add some settings :
  - TIME = 120, seconds between 2 executions of the script
  - POSTGRES_USER = docker, default user
  - POSTGRES_PASS = docker, default password
+ - PGPASSWORD = docker, default password (needed for specifying password during psql operations)
  - POSTGRES_HOST = db
  - POSTGRES_PORT = 5432
  - SETTINGS = settings, folder for settings (with *.json and *.sql)

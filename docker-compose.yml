@@ -27,7 +27,6 @@ services:
         test: "exit 0"
 
   imposm:
-    image: kartoza/docker-osm:imposm-latest
     build: docker-imposm3
     container_name: dockerosm_imposm
     volumes:
@@ -48,7 +47,7 @@ services:
       - POSTGRES_HOST=db
       # seconds between 2 executions of the script
       # if 0, then no update will be done, only the first initial import from the PBF
-      - TIME=120
+      - TIME=900
       # folder for settings (with *.json and *.sql)
       - SETTINGS=settings
       # folder for caching
@@ -74,7 +73,6 @@ services:
 
   osmupdate:
     build: docker-osmupdate
-    image: kartoza/docker-osm:osmupdate-latest
     container_name: dockerosm_osmupdate
     volumes:
       # These are sharable to other containers
@@ -104,4 +102,4 @@ services:
       - IMPORT_DONE=import_done
       # seconds between 2 executions of the script
       # if 0, then no update will be done, only the first initial import from the PBF
-      - TIME=120
+      - TIME=900
