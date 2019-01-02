@@ -27,7 +27,6 @@ services:
         test: "exit 0"
 
   imposm:
-    image: kartoza/docker-osm:imposm-latest
     build: docker-imposm3
     container_name: dockerosm_imposm
     volumes:
@@ -74,7 +73,6 @@ services:
 
   osmupdate:
     build: docker-osmupdate
-    image: kartoza/docker-osm:osmupdate-latest
     container_name: dockerosm_osmupdate
     volumes:
       # These are sharable to other containers
