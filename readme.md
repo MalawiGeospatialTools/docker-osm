@@ -13,7 +13,7 @@ As a quick implementation for Malawi, we are going to setup Docker-OSM with defa
 * Do `make run` in the build directory. This will download and execute the docker-osm project. It might be very long depending of your bandwidth and the PBF you are importing.
 * Do `make import_clip` in the build directory. This will import the Malawi country-border shapefile into the database and the clipping sql function needed for clipping the updates according to the territory of Malawi.
 * Check the data availability with PGAdmin or QGIS, by adding a new PostGIS connection: `localhost`(or the IP address/domain name of your server), database `gis`, port `35432`, `docker` for both username and password.
-* That's it! You have an OSM database, up and running. The update is done every 2 minutes from the main OSM website.
+* That's it! You have an OSM database, up and running. The update is done every 15 minutes from the main OSM website.
 
 For further reading and customizations, read below.
 
@@ -21,7 +21,7 @@ For further reading and customizations, read below.
 
 ### PBF File
 In this example we will set up an OSM database for Malawi that 
-will pull for updates every 2 minutes.
+will pull for updates every 15 minutes.
 
 First get a PBF file from your area and put this file in the 'settings' folder.
 You can download some PBF files on these URLS for instance :
@@ -46,7 +46,7 @@ https://raw.githubusercontent.com/omniscale/imposm3/master/example-mapping.yml
 ### Updates
 
 You can configure the time interval in the docker-compose file. By default,
-it's two minutes. If you set the TIME variable to 0, no diff files will be
+it's 15 minutes. If you set the TIME variable to 0, no diff files will be
 imported.
 
 The default update stream is worldwide. So even if you imported a local PBF, if
